@@ -4,6 +4,10 @@ const db = require("../models");
 module.exports = (app) => {
 	// * GET route for getting all of the projects
 	app.get("/api/project", (req, res) => {
+		const query = {};
+		if (req.query.employee_id) {
+			query.EmployeeId = req.query.employee_id;
+		}
 		// findAll returns all entries for a table when used with no options
 		db.Project.findAll({
 			include: [
@@ -12,7 +16,7 @@ module.exports = (app) => {
 					required: true,
 				},
 				{
-					model: db.Manager,
+					model: db.Role,
 				},
 			],
 		}).then((Manager) => res.json(Manager));
@@ -33,7 +37,7 @@ module.exports = (app) => {
 					required: true,
 				},
 				{
-					model: db.Manager,
+					model: db.Role
 				},
 			],
 		}).then((dbProject) => res.json(dbProject));
@@ -41,13 +45,16 @@ module.exports = (app) => {
 
 	//* POST route for saving a new project
 	app.post("/api/project", (req, res) => {
-		db.Project.create({ name: req.body.name }).then((dbPost) =>
+		db.Project.create({
+			name: req.body.name,
+			description: req.body.description,
+		}).then((dbPost) =>
 			res.json(dbPost)
 		);
 	});
 
 	// * DELETE route for deleting Project using the ID (req.params.id)
-	app.delete("/api/Projects:id", (req, res) => {
+	app.delete("/api/project:id", (req, res) => {
 		// We just have to specify which project we want to destroy with "where"
 		db.Project.destroy({
 			where: {
@@ -61,6 +68,7 @@ module.exports = (app) => {
 		db.Project.update(
 			{
 				name: req.body.name,
+				description: req.body.description
 			},
 			{
 				where: {

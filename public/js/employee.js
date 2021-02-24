@@ -13,35 +13,79 @@ $(document).ready(() => {
       .then((data) => {
         if (data.length > 0) {
           console.log('Success in getting post:', data);
+          console.log(data)
           $("#employee-table > tbody").empty();
           // Populate the form
-          for (i=0; i< data.length; i++){
-          empFirstName = data[i].first_name;
-          empLastName = data[i].last_name;
-          empTitle = data[i].title;
-          empSalary = data[i].salary;
-          empEmail = data[i].email;
+          for (i = 0; i < data.length; i++) {
+            empFirstName = data[i].first_name;
+            empLastName = data[i].last_name;
+            empTitle = data[i].Role.title;
+            empSalary = data[i].Role.salary;
+            empEmail = data[i].email;
 
-          var newRow = $("<tr>").append(
-            $("<td>").text(empFirstName),
-            $("<td>").text(empLastName),
-            $("<td>").text(empTitle),
-            $("<td>").text(empSalary),
-            $("<td>").text(empEmail),
-            $("<button>").text("Edit").addClass("edit-emp-btn"),
-            $("<button>").text("Delete").addClass("delete-emp-btn"),
-          );
+            var newRow = $("<tr>").append(
+              $("<td>").text(empFirstName),
+              $("<td>").text(empLastName),
+              $("<td>").text(empTitle).addClass("title-row"),
+              $("<td>").text(empSalary),
+              $("<td>").text(empEmail),
+              $("<button>").text("Edit").addClass("edit-emp-btn"),
+              $("<button>").text("Delete").addClass("delete-emp-btn"),
+            );
 
-          // Append the new row to the table
-          $("#employee-table > tbody").append(newRow)
+            // Append the new row to the table
+            $("#employee-table > tbody").append(newRow)
 
+          }
         }
-      }
       })
       .catch((err) => console.error(err));
 
   };
   getEmployees()
+
+  //Get Employee
+  const getManager = () => {
+    fetch('/api/managers', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.length > 0) {
+          console.log('Success in getting post:', data);
+          console.log(data)
+          $("#manager-table > tbody").empty();
+          // Populate the form
+          for (i = 0; i < data.length; i++) {
+            managerFirstName = data[i].first_name;
+            managerLastName = data[i].last_name;
+            managerTitle = data[i].Role.title;
+            managerSalary = data[i].Role.salary;
+            managerEmail = data[i].email;
+
+            var newRow = $("<tr>").append(
+              $("<td>").text(managerFirstName),
+              $("<td>").text(managerLastName),
+              $("<td>").text(managerTitle).addClass("title-row"),
+              $("<td>").text(managerSalary),
+              $("<td>").text(managerEmail),
+              $("<button>").text("Edit").addClass("edit-emp-btn"),
+              $("<button>").text("Delete").addClass("delete-emp-btn"),
+            );
+
+            // Append the new row to the table
+            $("#manager-table > tbody").append(newRow)
+
+          }
+        }
+      })
+      .catch((err) => console.error(err));
+
+  };
+  getManager()
 
   //Add Employee
   const addEmployee = (e) => {

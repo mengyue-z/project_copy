@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const managerSelect = document.getElementById('manager');
     // Get query parameter
     const url = window.location.search;
-    let postId;
+    let projectId;
     let employeeId;
     let updating = false;
 
@@ -65,15 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Object that will be sent to the db
         const newProject = {
-            project: titleInput.value.trim(),
-            details: bodyInput.value.trim(),
+            name: titleInput.value.trim(),
+            description: bodyInput.value.trim(),
             //  Employeeid: employeeSelect.value,
         };
         console.log(newProject);
 
         // Update a post if flag is true, otherwise submit a new one
         if (updating) {
-            newProject.id = postId;
+            newProject.id = projectId;
             updateProject(newProject);
         } else {
             submitProject(newProject);
@@ -84,18 +84,18 @@ document.addEventListener('DOMContentLoaded', () => {
     createBtn.addEventListener('submit', handleFormSubmit);
 
     // Submits new project then redirects
-    const submitProject = (result) => {
+    const submitProject = (project) => {
         fetch('/api/project', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(result),
+            body: JSON.stringify(project),
         })
             .then(() => {
                 window.location.href = '/dashboard';
             })
-            .catch((err) => console.error(err));
+        // .catch((err) => console.error(err));
     };
 
     // Render a list of employees or redirect if no employees
@@ -121,12 +121,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Build employee dropdown
+
     const createEmployeeRow = ({ id, name }) => {
         const listOption = document.createElement('option');
         listOption.value = id;
         listOption.textContent = name;
         return listOption;
     };
+
+
+
+
+
+
 
     // A function to get employees and then call the render function
     const getEmployees = () => {
@@ -138,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
             .then((response) => response.json())
             .then((data) => renderEmployeeList(data))
-            .catch((err) => console.error(err));
+        // .catch((err) => console.error(err));
     };
 
     // Get the employees, and their projects
@@ -156,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(() => {
                 window.location.href = '/dashboard';
             })
-            .catch((err) => console.error(err));
+        // .catch((err) => console.error(err));
     };
 });
 

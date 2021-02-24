@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             employeeId = `/?employee_id=${employeeId}`;
         }
 
-        fetch(`/api/projects${employeeId}`, {
+        fetch(`/api/project${employeeId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     initializeRows();
                 }
             })
-            .catch((error) => console.error('Error:', error));
+        // .catch((error) => console.error('Error:', error));
     };
 
     // Get a blog post from a specific author
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Front end call to DELETE a post
     const deleteProject = (id) => {
-        fetch(`/api/projects/${id}`, {
+        fetch(`/api/project/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
