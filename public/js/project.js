@@ -14,17 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const employeeSelect = document.getElementById('employee');
     const managerSelect = document.getElementById('manager');
     // Get query parameter
-    const url = window.location.search;
+    // const url = window.location.search;
     let projectId;
     let employeeId;
     let updating = false;
 
     // Get post data for editing/adding
-    // const getPostData = (id, type) => {
-    //     const queryUrl =
-    //         type === 'post' ? `/api/projects/${id}` : `/api/employee/${id}`;
-
-    //     fetch(queryUrl, {
+    // const getProjectData = () => {
+    //     fetch('/api/project', {
     //         method: 'GET',
     //         headers: {
     //             'Content-Type': 'application/json',
@@ -36,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //                 console.log('Success in getting project:', data);
 
     //                 // Populate the form for editing
-    //                 titleInput.value = data.project;
-    //                 bodyInput.value = data.details;
+    //                 titleInput.value = data.name;
+    //                 bodyInput.value = data.description;
     //                 // employeeId = data.EmployeeId || data.id;
 
     //                 // We are updating
@@ -47,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //         .catch((err) => console.error(err));
     // };
 
-
+    // getProjectData();
 
     // Event handler for when the project for is submitted
     const handleFormSubmit = (e) => {

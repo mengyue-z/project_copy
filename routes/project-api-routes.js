@@ -4,10 +4,10 @@ const db = require("../models");
 module.exports = (app) => {
 	// * GET route for getting all of the projects
 	app.get("/api/project", (req, res) => {
-		const query = {};
-		if (req.query.employee_id) {
-			query.EmployeeId = req.query.employee_id;
-		}
+		// const query = {};
+		// if (req.query.employee_id) {
+		// 	query.EmployeeId = req.query.employee_id;
+		// }
 		// findAll returns all entries for a table when used with no options
 		db.Project.findAll({
 			include: [
@@ -16,10 +16,10 @@ module.exports = (app) => {
 					required: true,
 				},
 				{
-					model: db.Role,
+					model: db.Manager,
 				},
 			],
-		}).then((Manager) => res.json(Manager));
+		}).then((Project) => res.json(Project));
 	});
 
 	// * Finding one project
@@ -37,7 +37,7 @@ module.exports = (app) => {
 					required: true,
 				},
 				{
-					model: db.Role
+					model: db.Manager
 				},
 			],
 		}).then((dbProject) => res.json(dbProject));
